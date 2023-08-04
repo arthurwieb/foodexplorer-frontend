@@ -26,9 +26,7 @@ export function MealDetails() {
   const mealUrl = meal ? `${api.defaults.baseURL}/files/${meal.image}` : '';
 
   async function handleEdit() {
-    console.log('hellou')
-    navigate(`/editmeal/${params.id}`)
-
+    navigate(`/meals/${params.id}`)
   }
 
   function handleIncrements() {

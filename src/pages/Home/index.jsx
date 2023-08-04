@@ -25,11 +25,12 @@ export function Home() {
   console.log(user);
   const navigate = useNavigate();
 
-  useEffect(() => { // essa search terá que ser diferente, não pode buscar por titulo e ingrediente, tem que ser UM OU OUTRO, alterar no backend, ver exemplo aqui https://github.com/alexsmarra/food-explorer-backend/blob/main/src/controllers/DishesController.js
+  useEffect(() => {
     async function fetchMeals() {
       const responseRefeicoes = await api.get(
         `/meals?category_id=1&search=${search}`
       );
+      console.log('response', responseRefeicoes)
       const responseSobremesas = await api.get(
         `/meals?category_id=2&search=${search}`
       );
@@ -43,191 +44,295 @@ export function Home() {
     fetchMeals();
   }, [search]);
 
-  if (user.admin) {
-    return (
-      <Container>
+  // if (user.admin) {
+  //   return (
+  //     <Container>
+  //       <HeaderAdmin setSearch={setSearch} />
+  //       {/* header admn */}
+  //       <div className="pageHome">
+  //         <div className="head">
+  //           <div className="HomeADS">
+  //             <div className="imgSide">
+  //               <img src={topHomeImage} alt="Imagem de comidas saborosas"></img>
+  //             </div>
+
+  //             <div className="textSide">
+  //               <h2>Sabores inigualáveis</h2>
+  //               <p>Sinta o cuidado do preparo com ingredientes selecionados.</p>
+  //             </div>
+  //           </div>
+  //         </div>
+
+  //         <div className="content">
+  //           <div className="refeicoes">
+  //             <h3>Refeições</h3>
+  //             <Swiper
+  //               modules={[Navigation, Pagination, Scrollbar, A11y]}
+  //               spaceBetween={100}
+  //               slidesPerView="auto"
+  //               style={{ margin: "0 5vw", paddingRight: "28vw" }}
+  //               className="swiper"
+  //               navigation
+  //               pagination={{ clickable: true }}
+  //               scrollbar={{ draggable: true }}
+  //             >
+  //               {refeicoes.map((meal) => (
+  //                 <SwiperSlide key={String(meal.id)}>
+  //                   <FoodCardAdmin meal={meal} />
+  //                   {/* // if adm */}
+  //                 </SwiperSlide>
+  //               ))}
+  //             </Swiper>
+  //           </div>
+  //         </div>
+  //         <div className="PratosPrincipais">
+  //           <h3>Sobremesas</h3>
+  //           <Swiper
+  //             modules={[Navigation, Pagination, Scrollbar, A11y]}
+  //             spaceBetween={100}
+  //             slidesPerView="auto"
+  //             style={{ margin: "0 5vw", paddingRight: "28vw" }}
+  //             className="swiper"
+  //             navigation
+  //             pagination={{ clickable: true }}
+  //             scrollbar={{ draggable: true }}
+  //           >
+  //             {/* // if adm */}
+
+  //             {sobremesas.map((meal) => (
+  //               <SwiperSlide key={String(meal.id)}>
+  //                 <FoodCardAdmin
+  //                   meal={meal}
+  //                   onClick={() => handleDetails(meal.id)}
+  //                 />
+  //               </SwiperSlide>
+  //             ))}
+  //           </Swiper>
+  //         </div>
+  //         <div className="Bebidas">
+  //           <h3>Bebidas</h3>
+  //           <Swiper
+  //             modules={[Navigation, Pagination, Scrollbar, A11y]}
+  //             spaceBetween={100}
+  //             slidesPerView="auto"
+  //             style={{ margin: "0 5vw", paddingRight: "28vw" }}
+  //             className="swiper"
+  //             navigation
+  //             pagination={{ clickable: true }}
+  //             scrollbar={{ draggable: true }}
+  //           >
+  //             {/* // if adm */}
+
+  //             {bebidas.map((meal) => (
+  //               <SwiperSlide key={String(meal.id)}>
+  //                 <FoodCardAdmin
+  //                   meal={meal}
+  //                   onClick={() => handleDetails(meal.id)}
+  //                 />
+  //               </SwiperSlide>
+  //             ))}
+  //           </Swiper>
+  //         </div>
+  //         <Footer />
+  //       </div>
+  //     </Container>
+  //   );
+  // } else {
+  //   return (
+  //     <Container>
+  //       <Header setSearch={setSearch} />
+  //       {/* // if adm */}
+  //       <div className="pageHome">
+  //         <div className="head">
+  //           <div className="HomeADS">
+  //             <div className="imgSide">
+  //               <img src={topHomeImage} alt="Imagem de comidas saborosas"></img>
+  //             </div>
+
+  //             <div className="textSide">
+  //               <h2>Sabores inigualáveis</h2>
+  //               <p>Sinta o cuidado do preparo com ingredientes selecionados.</p>
+  //             </div>
+  //           </div>
+  //         </div>
+
+  //         <div className="content">
+  //           <div className="refeicoes">
+  //             <h3>Refeições</h3>
+  //             <Swiper
+  //               modules={[Navigation, Pagination, Scrollbar, A11y]}
+  //               spaceBetween={100}
+  //               slidesPerView="auto"
+  //               style={{ margin: "0 5vw", paddingRight: "28vw" }}
+  //               className="swiper"
+  //               navigation
+  //               pagination={{ clickable: true }}
+  //               scrollbar={{ draggable: true }}
+  //             >
+  //               {refeicoes.map((meal) => (
+  //                 <SwiperSlide key={String(meal.id)}>
+  //                   <FoodCard meal={meal} />
+  //                   {/* // if adm */}
+  //                 </SwiperSlide>
+  //               ))}
+  //             </Swiper>
+  //           </div>
+  //         </div>
+  //         <div className="PratosPrincipais">
+  //           <h3>Sobremesas</h3>
+  //           <Swiper
+  //             modules={[Navigation, Pagination, Scrollbar, A11y]}
+  //             spaceBetween={100}
+  //             slidesPerView="auto"
+  //             style={{ margin: "0 5vw", paddingRight: "28vw" }}
+  //             className="swiper"
+  //             navigation
+  //             pagination={{ clickable: true }}
+  //             scrollbar={{ draggable: true }}
+  //           >
+  //             {/* // if adm */}
+
+  //             {sobremesas.map((meal) => (
+  //               <SwiperSlide key={String(meal.id)}>
+  //                 <FoodCard
+  //                   meal={meal}
+  //                   onClick={() => handleDetails(meal.id)}
+  //                 />
+  //               </SwiperSlide>
+  //             ))}
+  //           </Swiper>
+  //         </div>
+  //         <div className="Bebidas">
+  //           <h3>Bebidas</h3>
+  //           <Swiper
+  //             modules={[Navigation, Pagination, Scrollbar, A11y]}
+  //             spaceBetween={100}
+  //             slidesPerView="auto"
+  //             style={{ margin: "0 5vw", paddingRight: "28vw" }}
+  //             className="swiper"
+  //             navigation
+  //             pagination={{ clickable: true }}
+  //             scrollbar={{ draggable: true }}
+  //           >
+  //             {/* // if adm */}
+
+  //             {bebidas.map((meal) => (
+  //               <SwiperSlide key={String(meal.id)}>
+  //                 <FoodCard
+  //                   meal={meal}
+  //                   onClick={() => handleDetails(meal.id)}
+  //                 />
+  //               </SwiperSlide>
+  //             ))}
+  //           </Swiper>
+  //         </div>
+  //         <Footer />
+  //       </div>
+  //     </Container>
+  //   );
+  // }
+
+
+  return (
+    <Container>
+      {user.admin ? (
         <HeaderAdmin setSearch={setSearch} />
-        {/* header admn */}
-        <div className="pageHome">
-          <div className="head">
-            <div className="HomeADS">
-              <div className="imgSide">
-                <img src={topHomeImage} alt="Imagem de comidas saborosas"></img>
-              </div>
-
-              <div className="textSide">
-                <h2>Sabores inigualáveis</h2>
-                <p>Sinta o cuidado do preparo com ingredientes selecionados.</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="content">
-            <div className="refeicoes">
-              <h3>Refeições</h3>
-              <Swiper
-                modules={[Navigation, Pagination, Scrollbar, A11y]}
-                spaceBetween={100}
-                slidesPerView="auto"
-                style={{ margin: "0 5vw", paddingRight: "28vw" }}
-                className="swiper"
-                navigation
-                pagination={{ clickable: true }}
-                scrollbar={{ draggable: true }}
-              >
-                {refeicoes.map((meal) => (
-                  <SwiperSlide key={String(meal.id)}>
-                    <FoodCardAdmin meal={meal} />
-                    {/* // if adm */}
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          </div>
-          <div className="PratosPrincipais">
-            <h3>Sobremesas</h3>
-            <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              spaceBetween={100}
-              slidesPerView="auto"
-              style={{ margin: "0 5vw", paddingRight: "28vw" }}
-              className="swiper"
-              navigation
-              pagination={{ clickable: true }}
-              scrollbar={{ draggable: true }}
-            >
-              {/* // if adm */}
-
-              {sobremesas.map((meal) => (
-                <SwiperSlide key={String(meal.id)}>
-                  <FoodCardAdmin
-                    meal={meal}
-                    onClick={() => handleDetails(meal.id)}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-          <div className="Bebidas">
-            <h3>Bebidas</h3>
-            <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              spaceBetween={100}
-              slidesPerView="auto"
-              style={{ margin: "0 5vw", paddingRight: "28vw" }}
-              className="swiper"
-              navigation
-              pagination={{ clickable: true }}
-              scrollbar={{ draggable: true }}
-            >
-              {/* // if adm */}
-
-              {bebidas.map((meal) => (
-                <SwiperSlide key={String(meal.id)}>
-                  <FoodCardAdmin
-                    meal={meal}
-                    onClick={() => handleDetails(meal.id)}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-          <Footer />
-        </div>
-      </Container>
-    );
-  } else {
-    return (
-      <Container>
+      ) : (
         <Header setSearch={setSearch} />
-        {/* // if adm */}
-        <div className="pageHome">
-          <div className="head">
-            <div className="HomeADS">
-              <div className="imgSide">
-                <img src={topHomeImage} alt="Imagem de comidas saborosas"></img>
-              </div>
+      )}
+      <div className="pageHome">
+        <div className="head">
+          <div className="HomeADS">
+            <div className="imgSide">
+              <img src={topHomeImage} alt="Imagem de comidas saborosas"></img>
+            </div>
 
-              <div className="textSide">
-                <h2>Sabores inigualáveis</h2>
-                <p>Sinta o cuidado do preparo com ingredientes selecionados.</p>
-              </div>
+            <div className="textSide">
+              <h2>Sabores inigualáveis</h2>
+              <p>Sinta o cuidado do preparo com ingredientes selecionados.</p>
             </div>
           </div>
-
-          <div className="content">
-            <div className="refeicoes">
-              <h3>Refeições</h3>
-              <Swiper
-                modules={[Navigation, Pagination, Scrollbar, A11y]}
-                spaceBetween={100}
-                slidesPerView="auto"
-                style={{ margin: "0 5vw", paddingRight: "28vw" }}
-                className="swiper"
-                navigation
-                pagination={{ clickable: true }}
-                scrollbar={{ draggable: true }}
-              >
-                {refeicoes.map((meal) => (
-                  <SwiperSlide key={String(meal.id)}>
-                    <FoodCard meal={meal} />
-                    {/* // if adm */}
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          </div>
-          <div className="PratosPrincipais">
-            <h3>Sobremesas</h3>
-            <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              spaceBetween={100}
-              slidesPerView="auto"
-              style={{ margin: "0 5vw", paddingRight: "28vw" }}
-              className="swiper"
-              navigation
-              pagination={{ clickable: true }}
-              scrollbar={{ draggable: true }}
-            >
-              {/* // if adm */}
-
-              {sobremesas.map((meal) => (
-                <SwiperSlide key={String(meal.id)}>
-                  <FoodCard
-                    meal={meal}
-                    onClick={() => handleDetails(meal.id)}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-          <div className="Bebidas">
-            <h3>Bebidas</h3>
-            <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              spaceBetween={100}
-              slidesPerView="auto"
-              style={{ margin: "0 5vw", paddingRight: "28vw" }}
-              className="swiper"
-              navigation
-              pagination={{ clickable: true }}
-              scrollbar={{ draggable: true }}
-            >
-              {/* // if adm */}
-
-              {bebidas.map((meal) => (
-                <SwiperSlide key={String(meal.id)}>
-                  <FoodCard
-                    meal={meal}
-                    onClick={() => handleDetails(meal.id)}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-          <Footer />
         </div>
-      </Container>
-    );
-  }
+
+        <div className="content">
+          <div className="refeicoes">
+            <h3>Refeições</h3>
+            {console.log(refeicoes)}
+
+            <Swiper
+              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              spaceBetween={100}
+              slidesPerView="auto"
+              style={{ margin: "0 5vw", paddingRight: "28vw" }}
+              className="swiper"
+              navigation
+              pagination={{ clickable: true }}
+              scrollbar={{ draggable: true }}
+            >
+              {refeicoes.map((meal) => (
+                < SwiperSlide key={String(meal.id)}>
+                  {user.admin ? (
+                    <FoodCardAdmin meal={meal} onClick={() => handleDetails(meal.id)} />
+                  ) : (
+                    <FoodCard meal={meal} onClick={() => handleDetails(meal.id)} />
+                  )}
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+        <div className="PratosPrincipais">
+          <h3>Sobremesas</h3>
+          <Swiper
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={100}
+            slidesPerView="auto"
+            style={{ margin: "0 5vw", paddingRight: "28vw" }}
+            className="swiper"
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+          >
+            {/* // if adm */}
+
+            {sobremesas.map((meal) => (
+              <SwiperSlide key={String(meal.id)}>
+                {user.admin ? (
+                  <FoodCardAdmin meal={meal} onClick={() => handleDetails(meal.id)} />
+                ) : (
+                  <FoodCard meal={meal} onClick={() => handleDetails(meal.id)} />
+                )}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div className="Bebidas">
+          <h3>Bebidas</h3>
+          <Swiper
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={100}
+            slidesPerView="auto"
+            style={{ margin: "0 5vw", paddingRight: "28vw" }}
+            className="swiper"
+            navigation
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+          >
+
+            {bebidas.map((meal) => (
+              <SwiperSlide key={String(meal.id)}>
+                {user.admin ? (
+                  <FoodCardAdmin meal={meal} onClick={() => handleDetails(meal.id)} />
+                ) : (
+                  <FoodCard meal={meal} onClick={() => handleDetails(meal.id)} />
+                )}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <Footer />
+      </div>
+    </Container >
+  );
+
 }

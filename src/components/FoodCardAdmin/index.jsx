@@ -13,7 +13,8 @@ export function FoodCardAdmin({ meal }) {
   }
 
   async function handleEdit() {
-    navigate(`/editmeal/${meal.id}`);
+    console.log(meal.id)
+    navigate(`/editmeal/${meal.id}`); // arrumar aqui
   }
 
   return (
