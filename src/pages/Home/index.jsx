@@ -22,7 +22,6 @@ export function Home() {
   const [sobremesas, setSobremesas] = useState([]);
   const [bebidas, setBebidas] = useState([]);
   const { user } = useAuth();
-  console.log(user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,7 +29,6 @@ export function Home() {
       const responseRefeicoes = await api.get(
         `/meals?category_id=1&search=${search}`
       );
-      console.log('response', responseRefeicoes)
       const responseSobremesas = await api.get(
         `/meals?category_id=2&search=${search}`
       );
@@ -257,7 +255,6 @@ export function Home() {
         <div className="content">
           <div className="refeicoes">
             <h3>Refeições</h3>
-            {console.log(refeicoes)}
 
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y]}

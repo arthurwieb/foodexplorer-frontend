@@ -21,7 +21,7 @@ export function NewMeal() {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [imageFile, setImageFile] = useState();
-  const [category_id, setCategory] = useState();
+  let [category_id, setCategoryId] = useState();
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState([]);
   var [price, setPrice] = useState("");
@@ -46,6 +46,10 @@ export function NewMeal() {
     setImageFile(file);
   }
 
+  function handleCategorySelection(e) {
+    setCategoryId(e);
+  }
+
   async function handleSaveMealSubmit(e) {
     e.preventDefault();
 
@@ -54,7 +58,13 @@ export function NewMeal() {
         "Você deixou um ingrediente para adicionar, mas não clicou em adicionar. Clique para adicionar ou deixe o campo vazio"
       );
     }
+
     setIsSubmitting(true);
+
+    if (!category_id) {
+      category_id = 1;
+    }
+
     if (
       !title ||
       !description ||
@@ -141,14 +151,10 @@ export function NewMeal() {
                 </div>
                 <div>
                   <p>Categoria</p>
-
-                  {/* <InputCategory
-                    difColor
-                    onSelectionChange={(e) => setCategory(parseInt(e.target.value))}
-                  /> */}
                   <InputCategory
                     difColor
-                    onSelectionChange={(value) => setCategory(value)}
+                    value
+                    onChange={(e) => handleCategorySelection(e.target.value)}
                   />
                 </div>
               </div>

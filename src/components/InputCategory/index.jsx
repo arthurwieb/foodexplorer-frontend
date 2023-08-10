@@ -6,15 +6,12 @@ const options = [
   { id: 3, label: "Bebidas" },
 ];
 
-export function InputCategory({ selectedValue, onSelectionChange, icon: Icon, ...rest }) {
-  const handleSelectionChange = (event) => {
-    const selectedOption = event.target.value;
-    onSelectionChange(selectedOption);
-  };
+
+export function InputCategory({ editValue, onChange, icon: Icon, ...rest }) {
 
   return (
     <Container>
-      <select value={selectedValue} onChange={handleSelectionChange}>
+      <select value={editValue} onChange={onChange}>
         {options.map((option) => (
           <option key={option.id} value={option.id}>
             {option.label}
