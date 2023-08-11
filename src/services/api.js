@@ -5,9 +5,9 @@ export const api = axios.create({
   baseURL: "https://foodexplorer-backend-v6hy.onrender.com",
 });
 
-// api
-//   .get("")
-//   .then((response) => {})
-//   .catch((error) => {
-//     console.error(error);
-//   });
+api
+  .get("")
+  .then((response) => {})
+  .catch((error) => {
+    console.error(error);
+  });
